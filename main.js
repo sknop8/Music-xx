@@ -11,7 +11,7 @@
     var e, r = /([^&;=]+)=?([^&;]*)/g,
       q = window.location.hash.substring(1);
 
-    while (e === r.exec(q)) {
+    while (e = r.exec(q)) {
       hashParams[e[1]] = decodeURIComponent(e[2]);
     }
 
@@ -155,7 +155,7 @@
     //Authenticates user when they log in
     $('#login-button').click(function () {
       var client_id = '95c78bfaf97f4712bdff75b8ad883573'; 
-      var redirect_uri = 'http://sknop8.github.io/Music-xx/'; 
+      var redirect_uri = 'http://sknop8.github.io/Music-xx/';// 'http://localhost:8080';
 
       var state = generateRandomString(16);
 
