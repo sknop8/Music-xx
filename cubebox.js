@@ -238,7 +238,7 @@ function setSkyBoxAndGround(urls, ground) {
     ground.rotation.x = -Math.PI / 2; //-90 degrees around the xaxis
     //ground.rotation.z = -Math.PI/2;
 
-    //this.ground = ground;
+    this.ground = ground;
 
     //IMPORTANT, draw on both sides
     ground.doubleSided = true;
