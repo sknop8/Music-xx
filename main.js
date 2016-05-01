@@ -16,7 +16,7 @@
     }
 
     return hashParams; 
-  }
+  };
 
   /**
    * Generates a random string containing numbers and letters
@@ -31,7 +31,7 @@
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
-  }
+  };
 
   var userProfileSource = document.getElementById('user-profile-template').innerHTML,
     userProfileTemplate = Handlebars.compile(userProfileSource),
