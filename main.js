@@ -161,6 +161,7 @@
 
             var client_id = '95c78bfaf97f4712bdff75b8ad883573'; // Your client id
             var redirect_uri = 'http://sknop8.github.io/Music-xx/'; 
+            
             var state = generateRandomString(16);
 
             localStorage.setItem(stateKey, state);
