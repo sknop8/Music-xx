@@ -92,7 +92,7 @@
     var avgTempo = 0;
 
     //Displays corresponding playlist when user clicks on a playlist
-    $('.playlists').click(function () {
+    $(document).on('click', '.playlists', function () {
       currPlaylist = this.id;
       var userID = $('.user').attr('id');
       avgTempo = 0;
@@ -117,8 +117,7 @@
           if (numTracks > 5) {
             numTracks = 5;
           }
-          for (i = 0; i < numTracks; i++) {
-            
+          for (var i = 0; i < numTracks; i++) {
             //Gets the audio features for each track in the current playlist
             $.ajax({
               url: 'https://api.spotify.com/v1/audio-features/' + currTracks[i] ,
