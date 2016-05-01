@@ -56,7 +56,7 @@
       $.ajax({
         url: 'https://api.spotify.com/v1/me/',
         headers: {
-          Authorization: 'Bearer ' + access_token
+          'Authorization': 'Bearer ' + access_token
         },
         success: function (response) {
           userProfilePlaceholder.innerHTML = userProfileTemplate(response);
@@ -73,7 +73,7 @@
       $.ajax({
         url: 'https://api.spotify.com/v1/me/playlists',
         headers: {
-          Authorization: 'Bearer ' + access_token
+          'Authorization': 'Bearer ' + access_token
         },
         success: function (response) {
           userPlaylistsPlaceholder.innerHTML = userPlaylistsTemplate(response);
@@ -105,7 +105,7 @@
       $.ajax({
         url: 'https://api.spotify.com/v1/users/' + userID + '/playlists/' + currPlaylist + '/tracks',
         headers: {
-          Authorization: 'Bearer ' + access_token
+          'Authorization': 'Bearer ' + access_token
         },
         success: function (response) {
           currTracks = [];
@@ -123,7 +123,7 @@
             $.ajax({
               url: 'https://api.spotify.com/v1/audio-features/' + currTracks[i] ,
               headers: {
-                Authorization: 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
               },
               success: function (response) {
                 var t = Math.round(response.tempo / numTracks * 100) / 100;
