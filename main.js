@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var stateKey = 'spotify_auth_state';
   var currPlaylist = '';
 
@@ -9,14 +9,14 @@
   function getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
+      q = window.location.hash.substring(1);
 
-    while ( e = r.exec(q)) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
+    while (e === r.exec(q)) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
     }
 
     return hashParams; 
-  };
+  }
 
   /**
    * Generates a random string containing numbers and letters
@@ -31,50 +31,51 @@
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
-  };
+  }
 
   var userProfileSource = document.getElementById('user-profile-template').innerHTML,
-      userProfileTemplate = Handlebars.compile(userProfileSource),
-      userProfilePlaceholder = document.getElementById('user-profile');
+    userProfileTemplate = Handlebars.compile(userProfileSource),
+    userProfilePlaceholder = document.getElementById('user-profile');
 
   var userPlaylistsSource = document.getElementById('user-playlists-template').innerHTML,
-      userPlaylistsTemplate = Handlebars.compile(userPlaylistsSource),
-      userPlaylistsPlaceholder = document.getElementById('user-playlists');
+    userPlaylistsTemplate = Handlebars.compile(userPlaylistsSource),
+    userPlaylistsPlaceholder = document.getElementById('user-playlists');
 
   var params = getHashParams();
 
   var access_token = params.access_token,
-      state = params.state,
-      storedState = localStorage.getItem(stateKey);
+    state = params.state,
+    storedState = localStorage.getItem(stateKey);
 
   if (access_token && (state == null /*|| state !== storedState*/)) {
-    alert('There was an error during the authentication');
+    //alert('There was an error during the authentication');
   } else {
     //localStorage.removeItem(stateKey);
     if (access_token) {
+        //Gets the user's profile information
+      $.ajax({
+        url: 'https://api.spotify.com/v1/me/',
+        headers: {
+          Authorization: 'Bearer ' + access_token
+        },
+        success: function (response) {
+          userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
-        $.ajax({
-          url: 'https://api.spotify.com/v1/me/',
-          headers: {
-            'Authorization': 'Bearer ' + access_token
-          },
-          success: function(response) {
-            userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
-            $('#login').hide();
-            $('#loggedin').show();
-          }
+          $('#login').hide();
+          $('#loggedin').show();
+        }
       });
 
       var playlistURIs = {};
       var currTracks = [];
 
+      //Gets the user's first 10 playlists
       $.ajax({
         url: 'https://api.spotify.com/v1/me/playlists',
         headers: {
-          'Authorization': 'Bearer ' + access_token
+          Authorization: 'Bearer ' + access_token
         },
-        success: function(response) {
+        success: function (response) {
           userPlaylistsPlaceholder.innerHTML = userPlaylistsTemplate(response);
           
           for (var p of response.items) {
@@ -96,17 +97,17 @@
       var userID = $('.user').attr('id');
       avgTempo = 0;
 
-      $("#currPlaylist").html('<iframe src="https://embed.spotify.com/?uri=' + 
+      $('#currPlaylist').html('<iframe src="https://embed.spotify.com/?uri=' + 
         playlistURIs[currPlaylist] + 
         '" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>');
 
       //Gets the current playlist
       $.ajax({
-        url: 'https://api.spotify.com/v1/users/' + userID + '/playlists/' +currPlaylist + '/tracks',
+        url: 'https://api.spotify.com/v1/users/' + userID + '/playlists/' + currPlaylist + '/tracks',
         headers: {
-          'Authorization': 'Bearer ' + access_token
+          Authorization: 'Bearer ' + access_token
         },
-        success: function(response) {
+        success: function (response) {
           currTracks = [];
           for (var i of response.items) {
             currTracks.push(i.track.id);
@@ -116,37 +117,44 @@
           if (numTracks > 5) {
             numTracks = 5;
           }
-          for (var i = 0; i < numTracks; i++) {
+          for (i = 0; i < numTracks; i++) {
+            
             //Gets the audio features for each track in the current playlist
             $.ajax({
               url: 'https://api.spotify.com/v1/audio-features/' + currTracks[i] ,
               headers: {
-                'Authorization': 'Bearer ' + access_token
+                Authorization: 'Bearer ' + access_token
               },
-              success: function(response) {
-                var t = Math.round(response.tempo / numTracks * 100)/100;
+              success: function (response) {
+                var t = Math.round(response.tempo / numTracks * 100) / 100;
                 addTempo(t);
               }
             });
+
           }
         }
       });
     });
 
-
-    function addTempo(t) {
-      avgTempo +=t;
+    /**
+     * Adds to the average tempo
+     */
+    var addTempo = function addTempo(t) {
+      avgTempo += t;
       setSpeed(avgTempo);
-    }
+    };
 
-    function setSpeed(speed) {
-       window.speed = (speed-100) * 0.015;
-       $("#tempo").html("<div >average tempo: " + Math.round(speed*100)/100 + "</div>");
-    }
+    /**
+    * Updates the speed
+    */
+    var setSpeed = function setSpeed(speed) {
+      window.speed = (speed - 100) * 0.015;
+      $('#tempo').html('<div >average tempo: ' + Math.round(speed * 100) / 100 + '</div>');
+    };
 
-    document.getElementById('login-button').addEventListener('click', function() {
-
-      var client_id = '95c78bfaf97f4712bdff75b8ad883573'; // Your client id
+    //Authenticates user when they log in
+    $('#login-button').click(function () {
+      var client_id = '95c78bfaf97f4712bdff75b8ad883573'; 
       var redirect_uri = 'http://sknop8.github.io/Music-xx/'; 
 
       var state = generateRandomString(16);
@@ -163,10 +171,11 @@
       url += '&show_dialog=' + true;
 
       window.location = url;
-    }, false);
+    });
 
-    $('#relogin').click(function() {
-        $('#login-button').trigger('click');
+    //Redirects to login page
+    $('#relogin').click(function () {
+      $('#login-button').trigger('click');
     });
 
   }

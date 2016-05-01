@@ -2,8 +2,8 @@ var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 
 var JS = [
-'main.js',
-'cubebox.js'
+  'main.js',
+  'cubebox.js'
 ];
 
 gulp.task('eslint', function () {
