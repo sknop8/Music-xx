@@ -233,7 +233,7 @@ function setSkyBoxAndGround(urls, ground) {
 
     
     var groundGeo = new THREE.PlaneGeometry(1000,1000);
-    ground = new THREE.Mesh(groundGeo,groundMat);
+    var ground = new THREE.Mesh(groundGeo,groundMat);
     ground.position.y = -2.5; //lower it
     ground.rotation.x = -Math.PI / 2; //-90 degrees around the xaxis
     //ground.rotation.z = -Math.PI/2;
