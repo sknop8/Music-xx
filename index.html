@@ -3,143 +3,17 @@
   <head>
     <title>Music xx</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link href='https://fonts.googleapis.com/css?family=Monda' rel='stylesheet' type='text/css'>
-    <style type="text/css">
-      body{
-        padding: 0;
-        margin:0;
-        cursor:default;
-        height:100%;
-
-      }
-      div, #musicxx{
-        font-family: 'Monda', sans-serif;
-        color: rgb(30,30,30);
-
-      }
-      #sidebar{
-        background:rgba(255,255,255,0);
-        width:300px;
-      }
-      #login, #loggedin {
-        display: none;
-      }
-     .text-overflow {
-        overflow: hidden;
-/*        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;*/
-      }
-      .title {
-        font-size: 14pt;
-        padding-bottom: 10px
-      }
-      .music {
-        font-family: sans-serif;
-         margin-left:2%;
-        margin-top: 1%;
-        position:absolute;
-        width:95%;
-      } .embed{
-        opacity:0.7;
-/*        zoom:0.75;*/
-        /*margin-left: 100px;*/
-      } #musicxx{
-
-        font-size: 30pt;
-
-      }
-      #user-playlists{
-        padding-bottom: 10px;
-      }
-      .playlists{
-        margin-left: 15px;
-        font-size: 8pt;
-        width:400px;
-
-      }
-      .playlists:hover{
-        color:white;
-        cursor:pointer;
-      } 
-      #relogin {
-        color:white;
-        background: none;
-        border: white;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 0;
-      }
-      #relogin:hover{
-        background: rgba(200, 200, 200, .5);
-      }
-      #tempo{
-/*        padding-top: 10px;*/
-      margin-left: 182px;
-      font-size: 8pt;
-
-      }
-      #currPlaylist{
-        opacity: 0.5;
-        width:300px;
-
-
-      }
-      #currBlock{
-        height:130px;
-      }
-      #currPlaylist:hover{
-        opacity: 0.7;
-      }
-      iframe {
-
-      }
-      #instructions{
-        margin-top: 5px;
-        padding:5px;
-        width:210px;
-        font-size: 9pt;
-        background:rgba(250,250,250,0.2);
-
-      }
-      #go {
-        height:80px;
-        opacity: 0.3;
-        margin-top:5px;
-        margin-left: 30px;
-      }
-      #go:hover{
-        opacity: 0.8;
-        cursor:pointer;
-
-      }
-      #go-instructions{
-        margin-left:10px;
-        size:9pt;
-        color:white;
-        opacity: 0.6;
-      }
-/*      .option-container {
-        position: absolute;
-      }*/
-      .scene-options:hover{
-        color:rgba(255,255,255,0.6) !important;
-        cursor:pointer;
-      }
-
-      
-    </style> 
+    <link href='https://fonts.googleapis.com/css?family=Monda' rel='stylesheet' type='text/css'>
+    <link href='main.css' rel='stylesheet' type='text/css'>
   </head>
-
   <body>
-
     <div class="music container">
     <button id="relogin" class ="btn pull-right">Log in as someone else </button>
     <div id="sidebar">
     <h1 id="musicxx">Music xx </h1>
-      <div id="login">
+    <div id="login">
         <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
-      </div>
+    </div>
       <div id="loggedin">
        
         <div id="user-profile">
